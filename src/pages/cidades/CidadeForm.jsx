@@ -1,49 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { TextField, Button, MenuItem } from '@mui/material';
+import { useNavigate, useParams } from 'react-router-dom';
+import { TextField, Button } from '@mui/material';
 
-const CidadeForm = () => {
-  const { control, handleSubmit } = useForm();
-  
-  // Array de teste de cidades
-  const [cidades] = useState([
-    { id: 1, nome: 'São Paulo' },
-    { id: 2, nome: 'Rio de Janeiro' },
-    { id: 3, nome: 'Belo Horizonte' },
-  ]);
+export default function CidadeForm() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { control, handleSubmit, setValue } = useForm();
 
-  const onSubmit = (data) => {
-    console.log('Dados enviados:', data);
+  useEffect(() => {
+    if (id) {
+      const cidadeFake = { nome: 'Curitiba', uf: 'PR' };
+      setValue('nome', cidadeFake.nome);
+      setValue('uf', cidadeFake.uf);
+    }
+  }, [id, setValue]);
+
+  const onSubmit = (formData) => {
+    if (id) console.log('Atualizar cidade', id, formData);
+    else console.log('Criar cidade', formData);
+    navigate('/cidades');
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} style={{ padding: 20, display: 'grid', gap: 12 }}>
-      <Controller
-        name="nome"
-        control={control}
-        defaultValue=""
-        render={({ field }) => <TextField {...field} label="Nome da Cidade" required />}
-      />
-
-      <Controller
-        name="estado"
-        control={control}
-        defaultValue=""
-        render={({ field }) => (
-          <TextField select label="Selecione a Cidade" {...field}>
-            {cidades.map(c => (
-              <MenuItem key={c.id} value={c.id}>{c.nome}</MenuItem>
-            ))}
-          </TextField>
-        )}
-      />
-
+      <Controller name="nome" control={control} defaultValue="" render={({ field }) => <TextField {...field} label="Nome da Cidade" required />} />
+      <Controller name="uf" control={control} defaultValue="" render={({ field }) => <TextField {...field} label="UF" required />} />
       <div>
-        <Button variant="contained" type="submit">Salvar</Button>
-        <Button sx={{ ml: 2 }} type="button">Cancelar</Button>
+        <Button type="submit" variant="contained">Salvar</Button>
+        <Button sx={{ ml: 2 }} onClick={() => navigate(-1)}>Cancelar</Button>
       </div>
     </form>
   );
-};
-
-export default CidadeForm;
+}

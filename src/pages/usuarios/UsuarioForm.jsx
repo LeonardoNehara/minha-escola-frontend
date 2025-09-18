@@ -9,8 +9,7 @@ export default function UsuarioForm() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { control, handleSubmit, setValue } = useForm();
-  
-  // Array de teste de escolas
+
   const [escolas, setEscolas] = useState([
     { id: 1, nome: 'Escola A' },
     { id: 2, nome: 'Escola B' },
@@ -18,7 +17,6 @@ export default function UsuarioForm() {
   ]);
 
   useEffect(() => {
-    // Simulando um fetch de usuário caso tenha id
     if (id) {
       UsuarioService.getById(id).then(data => {
         setValue('nome', data.nome || '');

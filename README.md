@@ -23,6 +23,7 @@ src/
     layout/
       Header.jsx
       Sidebar.jsx
+      Layout.jsx
       Footer.jsx
     common/
       DataTable.jsx
@@ -44,11 +45,14 @@ src/
     cardapios/
       CardapioList.jsx
       CardapioForm.jsx
+    Register.jsx
+    Login.jsx
   routes/
     AppRoutes.jsx
   App.jsx
   main.jsx
   utils/
+    sidebarToggle.js
     useFetch.js
     notifications.js
   styles/

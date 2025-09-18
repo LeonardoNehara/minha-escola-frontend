@@ -1,9 +1,7 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
-    <div id="layoutSidenav">
       <div id="layoutSidenav_nav">
         <nav className="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
           <div className="sb-sidenav-menu">
@@ -39,7 +37,6 @@ const Sidebar = () => {
           </div>
         </nav>
       </div>
-    </div>
   );
 };
 
